@@ -6,7 +6,7 @@
 </form>
 <td></td>
 <td></td>
-<form action="#" method="post">
+<form action="{% url 'crow_add' %}" method="post">{% csrf_token %}
 <td><input type="submit" class="button" value="Добавить"/></td>
 </form>
 </tr>
@@ -14,6 +14,6 @@
 <td>Функция</td><td>График</td><td>Интервал</td><td>Шаг</td><td>Дата обработки</td>
 </tr>
 {% for crow in crows %}
-<tr>	<td>{{ crow }}</td> <td>Placeholder</td>  <td>{{crow.period}}</td> <td>{{crow.dt}}</td> <td>{{crow.published_date}}</td></tr>
+<tr>	<td>{{ crow }}</td> <td><img src="{{crow.chart.url}}"></img></td>  <td>{{crow.period}}</td> <td>{{crow.dt}}</td> <td>{{crow.published_date}}</td></tr>
 {% endfor %}
 </table>
