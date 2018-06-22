@@ -3,7 +3,7 @@ from django.utils import timezone
 
 class chart_row(models.Model):
 	func = models.TextField()
-	chart = models.ImageField(blank=True, null=True, upload_to = 'chs')
+	chart = models.ImageField(blank=True, null=True)
 	period = models.CharField(max_length=2)
 	dt = models.CharField(max_length=2)
 	published_date = models.DateTimeField(

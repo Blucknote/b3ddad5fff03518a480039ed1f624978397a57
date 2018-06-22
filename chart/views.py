@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.shortcuts import redirect
 from .models import chart_row
 from .forms import chart_row_add
+from . import plot
 
 def chart_rows(request):
     crows = chart_row.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -14,10 +15,9 @@ def crow_add(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.published_date = timezone.now()
-            print(post, post.period, post.dt)
+            post.chart = plot.chart_make(post, int(post.period), int(post.dt))
             post.save()
             return redirect('/')
     else:
         form = chart_row_add()
     return render(request, 'chart/crow_add.html', {'form': form})
-# Create your views here.
