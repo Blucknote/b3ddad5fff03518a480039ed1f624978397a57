@@ -13,7 +13,6 @@ app = Celery()
 @app.task(max_retries=1)
 def chart_make(dbid):
     obj = chart_row.objects.get(pk= dbid)
-    print(obj.func)
     interval = timedelta(days = int(obj.period))
     dt       = timedelta(hours = int(obj.dt))
 
@@ -23,14 +22,13 @@ def chart_make(dbid):
     plt.ylabel('Plot')
     fig_name = './chs/%s.png' % time()
     plt.savefig(fig_name)
-    obj.chart = fig_name[1:]
+    obj.chart = fig_name[5:]
+    obj.pub_date = datetime.now()
     obj.save()
-    print(obj.chart)
-    return fig_name[1:]
+    return fig_name[5:]
 
 def main():
     x = chart_make.delay(3)
-    print(x.get())
 
 if __name__ == '__main__':
     main()

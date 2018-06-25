@@ -1,16 +1,15 @@
 from django.db import models
-from django.utils import timezone
+from datetime import datetime
 
 class chart_row(models.Model):
 	func = models.TextField()
-	chart = models.ImageField(blank=True, null=True)
+	chart = models.ImageField(blank = True, null = True)
 	period = models.CharField(max_length=2)
 	dt = models.CharField(max_length=2)
-	published_date = models.DateTimeField(
-            blank=True, null=True)
+	pub_date = models.TextField(blank = True)
 
 	def chart_add(self):
-		self.published_date = timezone.now()
+		self.pub_date = datetime.now()
 		self.save()
 	
 	def __str__(self):
