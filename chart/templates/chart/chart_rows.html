@@ -14,6 +14,6 @@
 <td>Функция</td><td>График</td><td>Интервал</td><td>Шаг</td><td>Дата обработки</td>
 </tr>
 {% for crow in crows %}
-<tr>	<td>{{ crow }}</td> <td><img src="{{crow.chart.url}}"></img></td>  <td>{{crow.period}}</td> <td>{{crow.dt}}</td> <td>{{crow.pub_date}}</td></tr>
+<tr>	<td>{{ crow }}</td> <td><img src="{{crow.chart.url}}" height="130" width="160"></img></td>  <td>{{crow.period}}</td> <td>{{crow.dt}}</td> <td>{{crow.pub_date}}</td></tr>
 {% endfor %}
 </table>

@@ -7,10 +7,10 @@ from time import time
 from celery import Celery
 from .models import chart_row
 
-app = Celery()
+app = Celery('proj')
 #broker='amqp://', result_backend = 'redis://'
 
-@app.task(max_retries=1)
+@app.task(max_retries=2)
 def chart_make(dbid):
     obj = chart_row.objects.get(pk= dbid)
     interval = timedelta(days = int(obj.period))
@@ -22,10 +22,10 @@ def chart_make(dbid):
     plt.ylabel('Plot')
     fig_name = './chs/%s.png' % time()
     plt.savefig(fig_name)
-    obj.chart = fig_name[5:]
+    obj.chart = fig_name[1:]
     obj.pub_date = datetime.now()
     obj.save()
-    return fig_name[5:]
+    return fig_name[1:]
 
 def main():
     x = chart_make.delay(3)
