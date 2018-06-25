@@ -7,7 +7,7 @@ from time import time
 from celery import Celery
 from .models import chart_row
 
-app = Celery('proj')
+app = Celery('proj', result_backend = 'redis://')
 #broker='amqp://', result_backend = 'redis://'
 
 @app.task(max_retries=2)
