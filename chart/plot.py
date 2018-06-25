@@ -14,16 +14,19 @@ app = Celery()
 def chart_make(dbid):
     obj = chart_row.objects.get(pk= dbid)
     print(obj.func)
-    interval = timedelta(days = obj.period)
-    dt       = timedelta(hours = obj.dt)
+    interval = timedelta(days = int(obj.period))
+    dt       = timedelta(hours = int(obj.dt))
 
-    t = np.arange(datetime.now() - _interval, datetime.now(), _dt)
+    t = np.arange(datetime.now() - interval, datetime.now(), dt)
 
     plt.plot(t)
     plt.ylabel('Plot')
     fig_name = './chs/%s.png' % time()
     plt.savefig(fig_name)
-    return fig_name[1:] 
+    obj.chart = fig_name[1:]
+    obj.save()
+    print(obj.chart)
+    return fig_name[1:]
 
 def main():
     x = chart_make.delay(3)

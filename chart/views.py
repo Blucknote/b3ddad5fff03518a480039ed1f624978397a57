@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.utils import timezone
 from django.shortcuts import redirect
+from time import sleep
 from .models import chart_row
 from .forms import chart_row_add
 from .plot import chart_make
@@ -16,8 +17,8 @@ def crow_add(request):
             post = form.save(commit=False)
             post.published_date = timezone.now()
             post.save()
-            chart_make.apply_async((post.id, ), countdown = 3, expires= 15)
-            
+            chart_make.apply_async((post.id, ), countdown = 3, expires= 15) 
+            sleep(5)
             return redirect('/')
     else:
         form = chart_row_add()
