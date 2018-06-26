@@ -3,22 +3,28 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
-from time import time
+from time import time, mktime
 from celery import Celery
 from .models import chart_row
 
 app = Celery('proj', result_backend = 'redis://')
-#broker='amqp://', result_backend = 'redis://'
 
 @app.task(max_retries=2)
 def chart_make(dbid):
     obj = chart_row.objects.get(pk= dbid)
     interval = timedelta(days = int(obj.period))
     dt       = timedelta(hours = int(obj.dt))
+    func     = obj.func
+   
+    now = datetime.now()
+    start = now - interval
+     
+    x = np.arange(start, now, dt)
 
-    t = np.arange(datetime.now() - interval, datetime.now(), dt)
+    newx = [mktime(_.astype(datetime).timetuple()) for _ in x]
 
-    plt.plot(t)
+    funct = [*map(lambda t: eval(func), newx)]
+    plt.plot(funct)
     plt.ylabel('Plot')
     fig_name = './chs/%s.png' % time()
     plt.savefig(fig_name)
