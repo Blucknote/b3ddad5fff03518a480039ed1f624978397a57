@@ -30,7 +30,7 @@ def chart_make(dbid):
         obj.chart = str(e)
         obj.save()
     else:
-        plt.ylabel('Plot')
+        plt.ylabel(func)
         fig_name = './chs/%s.png' % time()
         plt.savefig(fig_name)
         obj.chart = fig_name[1:]
