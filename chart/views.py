@@ -5,7 +5,6 @@ from .models import chart_row
 from .forms import chart_row_add
 from .plot import chart_make
 
-load_gif = 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif'
 
 def chart_rows(request):
     crows = chart_row.objects.order_by('pk')
