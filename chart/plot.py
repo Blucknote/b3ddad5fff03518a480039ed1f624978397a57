@@ -22,16 +22,21 @@ def chart_make(dbid):
     x = np.arange(start, now, dt)
 
     newx = [mktime(_.astype(datetime).timetuple()) for _ in x]
-
-    funct = [*map(lambda t: eval(func), newx)]
-    plt.plot(funct)
-    plt.ylabel('Plot')
-    fig_name = './chs/%s.png' % time()
-    plt.savefig(fig_name)
-    obj.chart = fig_name[1:]
-    obj.pub_date = datetime.now()
-    obj.save()
-    return fig_name[1:]
+    
+    try:
+        funct = [*map(lambda t: eval(func), newx)]
+        plt.plot(funct)
+    except Exception as e:
+        obj.chart = str(e)
+        obj.save()
+    else:
+        plt.ylabel('Plot')
+        fig_name = './chs/%s.png' % time()
+        plt.savefig(fig_name)
+        obj.chart = fig_name[1:]
+        obj.pub_date = datetime.now()
+        obj.save()
+        return fig_name[1:]
 
 def main():
     x = chart_make.delay(3)
