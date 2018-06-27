@@ -76,9 +76,7 @@ WSGI_APPLICATION = 'charts.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'alytics',
-	'USER': 'postuser',
-	'PASSWORD': 'postpass',
+	'USER': 'postgres',
 	'HOST':	'127.0.0.1',
 	'PORT':	'5432',
     }

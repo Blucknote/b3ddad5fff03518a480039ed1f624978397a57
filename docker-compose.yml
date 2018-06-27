@@ -1,0 +1,24 @@
+version: '2' 
+
+services:
+  redis:
+    image: redis:alpine
+    restart: always
+  rabbitmq:
+    image: rabbitmq:3.7-alpine
+    restart: always
+  postgre:
+    image: postgres:10-alpine
+    restart: always
+  alytics:
+    build: .
+    command: python3 manage.py migrate
+    command: python3 manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - postgre 
+      - rabbitmq
+      - redis
+    image: blacknote/alytics
+    ports:
+      - "8000:8000"
+    restart: always

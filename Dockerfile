@@ -13,7 +13,7 @@ WORKDIR /home/www/alytics
 COPY ./ .
 
 RUN pip3 install -r ./requirements.txt
-EXPOSE 8000
+#EXPOSE 8000
 
-CMD ["python", "/home/www/alytics/manage.py", "migrate"]
-CMD ["python", "/home/www/alytics/manage.py", "runserver", "0.0.0.0:8000"]
+#CMD ["python", "/home/www/alytics/manage.py", "migrate"]
+#CMD ["python", "/home/www/alytics/manage.py", "runserver", "0.0.0.0:8000"]
