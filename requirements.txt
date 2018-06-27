@@ -3,4 +3,4 @@ pillow
 psycopg2
 django
 celery
-celery[redis]
+redis

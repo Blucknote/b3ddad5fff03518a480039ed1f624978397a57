@@ -3,22 +3,38 @@ version: '2'
 services:
   redis:
     image: redis:alpine
+    ports:
+      - "6379:6379"
     restart: always
   rabbitmq:
-    image: rabbitmq:3.7-alpine
+    image: rabbitmq:3-management 
+    ports:
+      - "15672:15672"
+      - "5672:5672"
     restart: always
   postgre:
     image: postgres:10-alpine
     restart: always
-  alytics:
-    build: .
+  migration:
+    image: blacknote/alytics
     command: python3 manage.py migrate
+    depends_on:
+      - postgre
+  alytics:
     command: python3 manage.py runserver 0.0.0.0:8000
     depends_on:
-      - postgre 
+      - postgre
+      - migration 
       - rabbitmq
       - redis
     image: blacknote/alytics
     ports:
       - "8000:8000"
+    restart: always
+  celery:
+    image: blacknote/alytics
+    command: celery -A charts worker -l info
+    depends_on:
+      - alytics
+      - rabbitmq 
     restart: always
