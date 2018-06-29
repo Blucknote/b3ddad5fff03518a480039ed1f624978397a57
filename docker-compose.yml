@@ -1,4 +1,4 @@
-version: '2' 
+version: '3' 
 
 services:
   redis:
@@ -16,25 +16,16 @@ services:
     image: postgres:10-alpine
     restart: always
   migration:
-    image: blacknote/alytics
+    image: blacknote/alytics:matplotlib
     command: python3 manage.py migrate
     depends_on:
       - postgre
   alytics:
-    command: python3 manage.py runserver 0.0.0.0:8000
+    command: sh ./startup.sh
     depends_on:
-      - postgre
-      - migration 
+      - migration
       - rabbitmq
-      - redis
-    image: blacknote/alytics
+    image: blacknote/alytics:matplotlib
     ports:
       - "8000:8000"
-    restart: always
-  celery:
-    image: blacknote/alytics
-    command: celery -A charts worker -l info
-    depends_on:
-      - alytics
-      - rabbitmq 
     restart: always
