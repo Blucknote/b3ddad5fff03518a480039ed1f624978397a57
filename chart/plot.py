@@ -7,7 +7,7 @@ from time import time, mktime
 from celery import Celery
 from .models import chart_row
 
-app = Celery('proj', result_backend = 'redis://')
+app = Celery('proj', broker = 'pyamqp://guest@rabbitmq//' , result_backend = 'redis://')
 
 @app.task(max_retries=2)
 def chart_make(dbid):
