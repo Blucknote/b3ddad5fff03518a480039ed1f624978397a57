@@ -29,3 +29,8 @@ services:
     ports:
       - "8000:8000"
     restart: always
+  highcharts:
+    image: onsdigital/highcharts-export-node
+    restart: always
+    ports:
+      - "8889:8080"

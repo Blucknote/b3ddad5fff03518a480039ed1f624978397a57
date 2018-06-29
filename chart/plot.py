@@ -1,7 +1,5 @@
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+import json
+import requests
 from datetime import datetime, timedelta
 from time import time, mktime
 from celery import Celery
@@ -25,16 +23,16 @@ def chart_make(dbid):
     
     try:
         funct = [*map(lambda t: eval(func), newx)]
-        plt.plot(funct)
+#        plt.plot(funct)
     except Exception as e:
         obj.chart = str(e)
         obj.save()
     else:
-        plt.ylabel(func)
-        fig_name = './chs/%s.png' % time()
-        plt.savefig(fig_name)
-        obj.chart = fig_name[1:]
-        obj.pub_date = datetime.now()
+ #       plt.ylabel(func)
+ #       fig_name = './chs/%s.png' % time()
+ #       plt.savefig(fig_name)
+ #       obj.chart = fig_name[1:]
+ #       obj.pub_date = datetime.now()
         obj.save()
         return fig_name[1:]
 
