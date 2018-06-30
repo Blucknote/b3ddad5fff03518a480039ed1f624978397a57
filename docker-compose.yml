@@ -16,7 +16,7 @@ services:
     image: postgres:10-alpine
     restart: always
   migration:
-    image: blacknote/alytics:matplotlib
+    image: blacknote/alytics
     command: python3 manage.py migrate
     depends_on:
       - postgre
@@ -25,7 +25,7 @@ services:
     depends_on:
       - migration
       - rabbitmq
-    image: blacknote/alytics:matplotlib
+    image: blacknote/alytics
     ports:
       - "8000:8000"
     restart: always
@@ -33,4 +33,4 @@ services:
     image: onsdigital/highcharts-export-node
     restart: always
     ports:
-      - "8889:8080"
+      - "8080:8080"

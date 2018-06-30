@@ -1,4 +1,4 @@
-matplotlib
+requests
 pillow
 psycopg2
 django
