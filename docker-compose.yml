@@ -1,4 +1,4 @@
-version: '3' 
+version: '2' 
 
 services:
   redis:
@@ -15,16 +15,11 @@ services:
   postgre:
     image: postgres:10-alpine
     restart: always
-  migration:
-    image: blacknote/alytics:matplotlib
-    command: python3 manage.py migrate
-    depends_on:
-      - postgre
   alytics:
     command: sh ./startup.sh
     depends_on:
-      - migration
       - rabbitmq
+      - postgre
     image: blacknote/alytics:matplotlib
     ports:
       - "8000:8000"
