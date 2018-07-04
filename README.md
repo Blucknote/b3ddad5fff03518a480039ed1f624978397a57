@@ -11,6 +11,6 @@ Django app with Celery on rabbitmq broker, redis result backend and postgres db 
 ![](https://i.imgur.com/VQ1vmOo.png)
 
 ## Run
-Install [docker-compose](https://docs.docker.com/compose/install/) anf then just
+Install [docker-compose](https://docs.docker.com/compose/install/) and then just
 
 `docker-compose up -d`
