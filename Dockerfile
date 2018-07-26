@@ -6,9 +6,9 @@ RUN apk add freetype-dev
 RUN apk add postgresql-dev
 RUN apk add libjpeg-turbo-dev
 
-RUN mkdir -p /home/www/alytics
+RUN mkdir -p /home/www/graphs
 
-WORKDIR /home/www/alytics
+WORKDIR /home/www/graphs
 
 COPY ./ .
 
