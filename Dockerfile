@@ -4,9 +4,9 @@ RUN apk update
 RUN apk add --no-cache --virtual .pynacl_deps build-base python3-dev libffi-dev 
 RUN apk add postgresql-dev zlib-dev libjpeg-turbo-dev
 
-RUN mkdir -p /home/www/alytics
+RUN mkdir -p /home/www/graphs
 
-WORKDIR /home/www/alytics
+WORKDIR /home/www/graphs
 
 COPY ./ .
 

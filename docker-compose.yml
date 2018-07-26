@@ -15,12 +15,12 @@ services:
   postgre:
     image: postgres:10-alpine
     restart: always
-  alytics:
+  graphs:
     command: sh ./startup.sh
     depends_on:
       - rabbitmq
       - postgre
-    image: blacknote/alytics
+    image: blacknote/graphs
     ports:
       - "8000:8000"
     restart: always
