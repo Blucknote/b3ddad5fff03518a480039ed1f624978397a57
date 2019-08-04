@@ -20,7 +20,7 @@ services:
     depends_on:
       - rabbitmq
       - postgre
-    image: blacknote/graphs
+    image: blacknote/graphs:portfolio
     ports:
       - "8000:8000"
     restart: always
